@@ -1,0 +1,123 @@
+#include <string.h>
+#include <fstream>
+#include <iostream>
+
+using namespace std;
+
+struct Kullanici
+{
+    char kullaniciAdi[80];
+    char sifre[80];
+    int boy;
+    int kilo;
+};
+void HosGeldin();
+void UyelikTakipSistemi();
+void KisiselDiyetProgrami();
+void SaglikliYemekler();
+void IletisimeGec();
+
+int main()
+{
+
+    char anamenu;
+    do
+    {
+      HosGeldin();
+        char secim;
+        cin >> secim;
+        cout << endl;
+
+        switch (secim)
+        {
+        case '1':
+            UyelikTakipSistemi();
+            break;
+        case '2':
+            KisiselDiyetProgrami();
+            break;
+        case '3':
+            SaglikliYemekler();
+            break;
+        case '4':
+            IletisimeGec();
+            break;
+        default:
+            cout << "Yanlis secim. Lutfen tekrar deneyin." << endl;
+            break;
+        }
+
+        cout << "Ana menuye donmek icin 'E' tusuna basiniz: ";
+        cin >> anamenu;
+    } while (anamenu == 'E' || anamenu == 'e');
+
+    return 0;
+}
+
+Kullanici kullanici;
+
+void HosGeldin()
+{
+cout<<"|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|" << endl;
+cout<<"|-Merhaba, Kisisel Fitness asistanin, KallMe'ye Hos geldin-|" << endl;
+cout<<"|-------------Sana Nasil Yardimci Olabilirim ?  -----------|" << endl;
+cout<<"|-------------- 1-  Uyelik Takip Sistemi  -----------------|" << endl;
+cout<<"|-------------- 2- Kisisel Diyet Programi  ----------------|" << endl;
+cout<<"|-------------- 3-   Saglikli Yemekler  -------------------|" << endl;
+cout<<"|-------------- 4- Benimle Iletisime Gec  -----------------|" << endl;
+cout<<"|++++++++++++++++++++++++++++++++++++++++++++++++++++++++++|" << endl;
+}
+
+
+void UyelikTakipSistemi()
+{
+    ofstream dosya("kullanicibilgileri.txt", ios::app);
+    cout << "Lutfen kullanici adi girin." << endl;
+    cin >> kullanici.kullaniciAdi;
+    cout << "Lutfen sifrenizi girin." << endl;
+    cin >> kullanici.sifre;
+    cout<<"lutfen boyunuzu girin."<<endl;
+    cin>>kullanici.boy;
+    cout<<"lutfen kilonuzu girin. "<<endl;
+    cin>>kullanici.kilo;
+    dosya << kullanici.kullaniciAdi << " " << kullanici.sifre <<" "<<kullanici.boy<<" "<<kullanici.kilo<< endl;
+
+    dosya.close();
+    cout << "Uyelik basarili bir sekilde olusturuldu!" << endl;
+}
+
+void KisiselDiyetProgrami()
+{
+    if (strlen(kullanici.kullaniciAdi) == 0)
+    {
+        cout << "Once uyelik olusturmalisiniz (Secim 1)." << endl;
+        return;
+    }
+	int idealkilo= (kullanici.boy - 100) * 0.90 ;
+    cout << "Ideal boy/kilo oraniniz: "<<idealkilo<< " KG" << endl;
+    cout <<"su anki kilonuz: "<<kullanici.kilo<<endl;
+    if (kullanici.kilo>idealkilo)
+    cout<<"Kilo fazlaliginiz mevcut, vermeniz gereken kilo "<<kullanici.kilo-idealkilo<<" KG"<<endl;
+    else if (kullanici.kilo<idealkilo)
+    cout<<"Kilo eksikliginiz mevcut, almaniz gereken kilo "<<idealkilo-kullanici.kilo<<" KG"<<endl;
+    else if (kullanici.kilo==idealkilo)
+    cout<<"tebrikler! ideal kiloya sahipsiniz."<<endl;
+}
+
+void SaglikliYemekler()
+{
+    cout << "Saglikli Yemekler:" << endl;
+    cout << "1- Izgara tavuk " << endl;
+    cout << "2- Somon baligi" << endl;
+    cout << "3- Ezogelin corbasi" << endl;
+    cout << "4- Coban salatasi" << endl;
+    cout << "5- Yogurtlu meyve salatasi" << endl;
+    cout << "BONUS- Ogrencilerin vazgecilmezi, tavuk doner" << endl;
+}
+
+void IletisimeGec()
+{
+	cout<<endl;
+    cout << "Ozel diyet programi icin, instagram'da @serdar.jpg, GitHub'ta @hustle342, Linkedin'de Serdar Korkmaz adreslerinden bana ulasabilirsiniz." << endl;
+    cout<<endl<<endl;
+}
